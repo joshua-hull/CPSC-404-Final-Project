@@ -1,0 +1,20 @@
+{
+  "name": "CPSC 404 Final Project",
+  "version": "0.0.1",
+  "homepage": "https://github.com/joshua-hull/CPSC-404-Final-Project",
+  "authors": [
+    "Joshua Hull <jhull@clemson.edu>",
+    "Alex Berk <aberk@clemson.edu>"
+  ],
+  "description": "CPSC 404 Final Project",
+  "main": "index.html",
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
