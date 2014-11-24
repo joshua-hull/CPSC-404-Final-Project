@@ -74,6 +74,7 @@ function submitPressed () {
   form.append('metaData', JSON.stringify(submit));
 
   console.log(JSON.stringify(submit));
+  console.log(form);
 
   var xhr = new XMLHttpRequest();
   xhr.onload = function(e) {
