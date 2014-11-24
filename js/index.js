@@ -66,10 +66,7 @@ function submitPressed () {
     submit['filter']['strength'] = 'none';
   }
 
-  console.log(submit);
-
   var imageForm = document.getElementById('imageForm');
-  console.log(imageForm[1]);
   var imageData = imageForm[1].files[0];
   var form = new FormData();
 
@@ -97,8 +94,8 @@ jQuery(document).ready(function(){
 
   // Red Channel
   jQuery("#gainRedSlider").slider({
-    max: 1.0,
-    min: 0.0,
+    max: 2.501,
+    min: -2.5,
     step: 0.1,
     slide: function(event, ui) {
       gainRedSliderValue = ui.value;
@@ -112,8 +109,8 @@ jQuery(document).ready(function(){
 
   // Green Channel
   jQuery("#gainGreenSlider").slider({
-    max: 1.0,
-    min: 0.0,
+    max: 2.501,
+    min: -2.5,
     step: 0.1,
     slide: function(event, ui) {
       gainGreenSliderValue = ui.value;
@@ -127,8 +124,8 @@ jQuery(document).ready(function(){
 
   // Blue Channel
   jQuery("#gainBlueSlider").slider({
-    max: 1.0,
-    min: 0.0,
+    max: 2.501,
+    min: -2.5,
     step: 0.1,
     slide: function( event, ui ) {
       gainBlueSliderValue = ui.value;
@@ -142,8 +139,8 @@ jQuery(document).ready(function(){
 
   // Global Adjustment
   jQuery("#gainGlobalSlider").slider({
-    max: 1.0,
-    min: 0.0,
+    max: 2.501,
+    min: -2.5,
     step: 0.1,
     slide: function( event, ui ) {
       gainGlobalSliderValue = ui.value;
@@ -160,8 +157,8 @@ jQuery(document).ready(function(){
 
   // Red Channel
   jQuery("#biasRedSlider").slider({
-    max: 1.0,
-    min: 0.0,
+    max: 2.501,
+    min: -2.5,
     step: 0.1,
     slide: function(event, ui) {
       biasRedSliderValue = ui.value;
@@ -175,8 +172,8 @@ jQuery(document).ready(function(){
 
   // Green Channel
   jQuery("#biasGreenSlider").slider({
-    max: 1.0,
-    min: 0.0,
+    max: 2.501,
+    min: -2.5,
     step: 0.1,
     slide: function(event, ui) {
       biasGreenSliderValue = ui.value;
@@ -190,8 +187,8 @@ jQuery(document).ready(function(){
 
   // Blue Channel
   jQuery("#biasBlueSlider").slider({
-    max: 1.0,
-    min: 0.0,
+    max: 2.501,
+    min: -2.5,
     step: 0.1,
     slide: function( event, ui ) {
       biasBlueSliderValue = ui.value;
@@ -205,8 +202,8 @@ jQuery(document).ready(function(){
 
   // Global Adjustment
   jQuery("#biasGlobalSlider").slider({
-    max: 1.0,
-    min: 0.0,
+    max: 2.501,
+    min: -2.5,
     step: 0.1,
     slide: function( event, ui ) {
       biasGlobalSliderValue = ui.value;
