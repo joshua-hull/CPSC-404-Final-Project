@@ -70,8 +70,8 @@ function submitPressed () {
   var imageData = imageForm[1].files[0];
   var form = new FormData();
 
-  form.append('metaData', submit.serializeData());
   form.append('image', imageData);
+  form.append('metaData', JSON.stringify(submit));
 
   console.log(JSON.stringify(submit));
 
@@ -86,7 +86,7 @@ function submitPressed () {
       console.log(percentComplete + "% uploaded");
     }
   };
-  xhr.open('post', 'upload.php', true);
+  xhr.open('post', '/upload.php', true);
   xhr.send(form);
 
 }
