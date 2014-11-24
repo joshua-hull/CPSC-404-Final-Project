@@ -1,16 +1,14 @@
-/*
- * Joshua Hull (jhull@clemson.edu) and Alex Berk (aberk@clemson.edu)
- * CPSC 4040-001 Fall 2014 Final Project
- */
 <?php
+  /*
+  * Joshua Hull (jhull@clemson.edu) and Alex Berk (aberk@clemson.edu)
+  * CPSC 4040-001 Fall 2014 Final Project
+  */
   if($_SERVER['REQUEST_METHOD'] == 'POST') {
-    print_r($_FILES);
-    print_r($_POST);
     $originalName = $_FILES['image']['tmp_name'];
     $newName = $originalName;
     //$newName = tmpfile();
 
-    $meta = json_decode($_FILES['metaData'], true);
+    $meta = json_decode($_POST['metaData'], true);
     $globalGain = $meta['gain']['global'];
     $globalBias = $meta['bias']['bias'];
 
@@ -66,7 +64,7 @@
 
 
     $fileContent = file_get_contents($newName);
-    $finfo_open(FINFO_MEME_TYPE);
+    $finfo = finfo_open(FINFO_MEME_TYPE);
     $dataUrl = 'data:' . finfo_file($finfo,$newName) . ';base64,' . base64_encode($fileContent);
     $json = json_encode(array(
       'dataUrl' => $dataUrl
