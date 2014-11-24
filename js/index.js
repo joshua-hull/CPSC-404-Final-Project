@@ -70,7 +70,7 @@ function submitPressed () {
   var imageData = imageForm[1].files[0];
   var form = new FormData();
 
-  form.append('metaData', JSON.stringify(submit));
+  form.append('metaData', submit.serializeData());
   form.append('image', imageData);
 
   console.log(JSON.stringify(submit));
