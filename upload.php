@@ -64,7 +64,7 @@
 
 
     $fileContent = file_get_contents($newName);
-    $finfo = finfo_open(FILEINFO_MEME);
+    $finfo = finfo_open(FILEINFO_MIME_TYPE);
     $dataUrl = 'data:' . finfo_file($finfo,$newName) . ';base64,' . base64_encode($fileContent);
     $json = json_encode(array(
       'dataUrl' => $dataUrl
