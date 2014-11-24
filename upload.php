@@ -10,7 +10,7 @@
 
     $meta = json_decode($_POST['metaData'], true);
     $globalGain = $meta['gain']['global'];
-    $globalBias = $meta['bias']['bias'];
+    $globalBias = $meta['bias']['global'];
 
     $parameters = '';
     if($globalGain) {
@@ -64,7 +64,7 @@
 
 
     $fileContent = file_get_contents($newName);
-    $finfo = finfo_open(FILEINFO_MEME_TYPE);
+    $finfo = finfo_open(FILEINFO_MEME);
     $dataUrl = 'data:' . finfo_file($finfo,$newName) . ';base64,' . base64_encode($fileContent);
     $json = json_encode(array(
       'dataUrl' => $dataUrl
