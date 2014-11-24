@@ -86,7 +86,7 @@ function submitPressed () {
       console.log(percentComplete + "% uploaded");
     }
   };
-  xhr.open('post', '/upload.php', true);
+  xhr.open('post', 'upload.php', true);
   xhr.send(form);
 
 }
