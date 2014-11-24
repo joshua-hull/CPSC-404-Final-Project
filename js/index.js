@@ -39,7 +39,7 @@ function submitPressed () {
   var biasForm = document.getElementById('biasGlobal');
   if(biasForm[0].checked) {
     submit['bias']['global'] = true;
-    submit['gain']['value'] = biasGlobalSliderValue;
+    submit['bias']['value'] = biasGlobalSliderValue;
   } else {
     submit['bias']['global'] = false;
     submit['bias']['r'] = biasRedSliderValue;
@@ -70,12 +70,14 @@ function submitPressed () {
   var imageData = imageForm[1].files[0];
   var form = new FormData();
 
-  form.append('metaData', submit);
+  form.append('metaData', JSON.stringify(submit));
   form.append('image', imageData);
 
-  var xhr = new XMLHttpRequest();
-  xhr.onload = function() {
+  console.log(JSON.stringify(submit));
 
+  var xhr = new XMLHttpRequest();
+  xhr.onload = function(e) {
+    console.log(xhr.responseText);
   };
 
   xhr.onload.onprogess = function(e) {
@@ -84,8 +86,8 @@ function submitPressed () {
       console.log(percentComplete + "% uploaded");
     }
   };
-  // xhr.open('post', '/upload.php', true);
-  // xhr.send(form);
+  xhr.open('post', '/upload.php', true);
+  xhr.send(form);
 
 }
 
