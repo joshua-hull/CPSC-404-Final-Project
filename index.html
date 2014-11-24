@@ -1,4 +1,8 @@
 <!DOCTYPE html>
+<!--
+  * Joshua Hull (jhull@clemson.edu) and Alex Berk (aberk@clemson.edu)
+  * CPSC 4040-001 Fall 2014 Final Project
+-->
 <html lang="en">
 <head>
   <meta charset="utf-8">
@@ -6,19 +10,24 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>CPSC 404 Final Project</title>
 
-  <!-- Bootstrap -->
-  <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-
   <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
   <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
   <script src="https://code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
-  <!-- Include all compiled plugins (below), or include individual files as needed -->
-  <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-
   <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet">
 
-  <script src="index.js"></script>
-  <link href="index.css"></link>
+  <!-- Bootstrap -->
+  <!-- Latest compiled and minified JavaScript -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+
+  <script src="js/index.js"></script>
+  <link href="css/index.css"></link>
+
+  <!-- fileinput -->
+  <!-- http://plugins.krajee.com/file-input -->
+  <script src="js/fileinput.min.js"></script>
+  <link href="css/fileinput.min.css" rel="stylesheet"></link>
 
 </script>
 
@@ -51,26 +60,93 @@
       </div><!--/.container-fluid -->
     </nav>
     <div class="row">
-      <div class="col-md-6 col-md-offset-6">
+      <div class="col-md-4">
+        <div class="well">
+          <h3>Adjust Gain</h3>
+          <hr/>
+          <div id="gainRedSlider"></div>
+          <div>
+            <p id="gainRedSliderLabel">Value: 0</p>
+          </div>
+          <div id="gainGreenSlider"></div>
+          <div>
+            <p id="gainGreenSliderLabel">Value: 0</p>
+          </div>
+          <div id="gainBlueSlider"></div>
+          <div>
+            <p id="gainBlueSliderLabel">Value: 0</p>
+          </div>
+          <hr/>
+          <h4>Global Adjustement <form id='gainGlobal'><input type="checkbox"></form></h4>
+          <h6>Overrides above setttings.</h6>
+          <div id="gainGlobalSlider"></div>
+          <div>
+            <p id="gainGlobalSliderLabel">Value: 0</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
         <div class="well">
           <h3>Adjust Bias</h3>
           <hr/>
-          <div id="redSlider"></div>
+          <div id="biasRedSlider"></div>
           <div>
-            <p id="redSliderLabel">Value: 0</p>
+            <p id="biasRedSliderLabel">Value: 0</p>
           </div>
-          <div id="greenSlider"></div>
+          <div id="biasGreenSlider"></div>
           <div>
-            <p id="greenSliderLabel">Value: 0</p>
+            <p id="biasGreenSliderLabel">Value: 0</p>
           </div>
-          <div id="blueSlider"></div>
+          <div id="biasBlueSlider"></div>
           <div>
-            <p id="blueSliderLabel">Value: 0</p>
+            <p id="biasBlueSliderLabel">Value: 0</p>
           </div>
+          <hr/>
+          <h4>Global Adjustement <form id='biasGlobal'><input type="checkbox"></form></h4>
+          <h6>Overrides above setttings.</h6>
+          <div id="biasGlobalSlider"></div>
+          <div>
+            <p id="biasGlobalSliderLabel">Value: 0</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="well">
+          <h3>Sharpening/Smoothing</h3>
+          <hr/>
+          <form id='filtering'>
+            <div id="mode-group" class="btn-group" data-toggle="buttons">
+              <label class="btn btn-default">
+                <input type="radio" name="type"> Sharpening
+              </label>
+              <label class="btn btn-default">
+                <input type="radio" name="type"> Smoothing
+              </label>
+            </div>
+            <p/>
+            <div id="period-group" class="btn-group" data-toggle="buttons">
+              <label class="btn btn-default">
+                <input type="radio" name="strength"> High
+              </label>
+              <label class="btn btn-default">
+                <input type="radio" name="strength"> Medium
+              </label>
+              <label class="btn btn-default">
+                <input type="radio" name="strength"> Low
+              </label>
+            </div>
+          </form>
+        </div>
+        <div class='well'>
+          <form id='imageForm'>
+            <input id="imageInput" type="file" class="file">
+          </form>
+        </div>
+        <div class='well'>
+          <button class='btn btn-default' type="button" onclick='submitPressed();'>Process</button>
         </div>
       </div>
     </div>
   </div>
-</div>
 </body>
 </html>
