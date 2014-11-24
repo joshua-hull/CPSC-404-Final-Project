@@ -5,6 +5,7 @@
 <?php
   if($_SERVER['REQUEST_METHOD'] == 'POST') {
     print_r($_FILES);
+    print_r($_POST);
     $originalName = $_FILES['image']['tmp_name'];
     $newName = $originalName;
     //$newName = tmpfile();
