@@ -5,8 +5,8 @@
   */
   if($_SERVER['REQUEST_METHOD'] == 'POST') {
     $originalName = $_FILES['image']['tmp_name'];
-    $newName = $originalName;
-    //$newName = tmpfile();
+    //$newName = $originalName;
+    $newName = tmpfile();
 
     $meta = json_decode($_POST['metaData'], true);
     $globalGain = $meta['gain']['global'];
@@ -60,12 +60,12 @@
           break;
       }
     }
-    //exec('process' . $parameters);
+    exec('./process' . $parameters . ' >>process.txt 2>&1');
 
 
-    $fileContent = file_get_contents($newName);
+    $fileContent = @file_get_contents($newName);
     $finfo = finfo_open(FILEINFO_MIME_TYPE);
-    $dataUrl = 'data:' . finfo_file($finfo,$newName) . ';base64,' . base64_encode($fileContent);
+    $dataUrl = 'data:' . @finfo_file($finfo,$newName) . ';base64,' . base64_encode($fileContent);
     $json = json_encode(array(
       'dataUrl' => $dataUrl
     ));

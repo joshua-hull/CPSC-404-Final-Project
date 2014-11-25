@@ -75,6 +75,7 @@ function submitPressed () {
 
   var xhr = new XMLHttpRequest();
   xhr.onload = function(e) {
+    console.log(xhr.response);
     var response = JSON.parse(xhr.responseText);
     jQuery('#photoDiv').html('<img src=' + response['dataUrl'] + ' />');
   };

@@ -10,7 +10,6 @@
 #include <getopt.h>
 #include "pixel.h"
 #include <OpenImageIO/imageio.h>
-#include <array>
 #ifdef __APPLE__
 #  include <GLUT/glut.h>
 #else
@@ -32,13 +31,13 @@ bool smoothFlag = false;
 bool sharpFlag = false;
 int filterStrength;
 
-bool globalGainFlag;
+bool globalGainFlag = false;
 float globalGainValue;
 float redGainValue;
 float blueGainValue;
 float greenGainValue;
 
-bool globalBiasFlag;
+bool globalBiasFlag = false;
 float globalBiasValue;
 float redBiasValue;
 float blueBiasValue;
@@ -139,11 +138,11 @@ void writeImage() {
 }
 
 void process() {
-  std::array< std::array<float,3> ,3> smSharp = {{
-    {{0.0, 1.0, 1.0}},
-    {{1.0, 0.0, 1.0}},
-    {{0.0, 1.0, 0.0}}
-  }};
+  float smSharp[3][3] = {
+    {0.0, 1.0, 1.0},
+    {1.0, 0.0, 1.0},
+    {0.0, 1.0, 0.0}
+  };
 
   float mdSharp[5][5] = {
     {0.0, 0.0, 1.0, 0.0, 0.0},
@@ -325,80 +324,35 @@ void process() {
  */
 int main(int argc, char** argv) {
 
-  int c;
+int c;
 
-  while(true) {
-    static struct option long_options[] = {
-      {"globalGain", required_argument, 0, 'a'},
-      {"redGain",    required_argument, 0, 'b'},
-      {"greenGain",  required_argument, 0, 'c'},
-      {"blueGain",   required_argument, 0, 'd'},
-      {"globalBias", required_argument, 0, 'e'},
-      {"redBias",    required_argument, 0, 'f'},
-      {"greenBias",  required_argument, 0, 'g'},
-      {"blueBias",   required_argument, 0, 'h'},
-      {"smooth",     no_argument,       0, 'i'},
-      {"sharp",      no_argument,       0, 'j'},
-      {"strength",   required_argument, 0, 'k'},
-      {"input",      required_argument, 0, 'l'},
-      {"output",     required_argument, 0, 'm'},
-      {0,0,0,0}
-    };
+  int option_index = 0;
 
-    int option_index = 0;
-
-    c = getopt_long(argc, argv, "a:b:c:d:e:f:g:h:ijk:l:m:", long_options, &option_index);
-
-    if(c == -1) break;
-
+  while((c = getopt(argc, argv, "1:r:g:b:2:R:G:B:sS#:I:O:")) >= 0) {
     switch(c) {
-      case 'a':
-        globalGainFlag = true;
-        break;
-      case 'b':
-        redGainValue = atoi(optarg);
-        break;
-      case 'c':
-        greenGainValue = atoi(optarg);
-        break;
-      case 'd':
-        blueGainValue = atoi(optarg);
-        break;
-      case 'e':
-        globalBiasFlag = true;
-        break;
-      case 'f':
-        redBiasValue = atoi(optarg);
-        break;
-      case 'g':
-        greenBiasValue = atoi(optarg);
-        break;
-      case 'h':
-        blueBiasValue = atoi(optarg);
-        break;
-      case 'k':
-        filterStrength = atoi(optarg);
-        break;
-      case 'l':
+      case 'I':
         inImage = optarg;
         break;
-      case 'm':
+      case 'O':
         outImage = optarg;
         break;
-      case 'i':
-        smoothFlag = true;
+      case '1':
+        globalGainFlag = true;
+        globalGainValue = atoi(optarg);
         break;
-      case 'j':
-        sharpFlag = true;
+      case 'r':
+        redGainValue = atof(optarg);
+        break;
+      default:
         break;
     }
   }
 
-  readImage(inImage);
+  //readImage(inImage);
 
-  process();
+  //process();
 
-  writeImage();
+  //writeImage();
 
   return EXIT_SUCCESS;
 }
