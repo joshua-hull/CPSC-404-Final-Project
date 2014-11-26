@@ -105,7 +105,7 @@ void readImage(char *image) {
 */
 void writeImage() {
 
-  // Transfer to something OpenImageIO understands
+// Transfer to something OpenImageIO understands
   oiioPixels.resize(width*height*4*sizeof(float));
 
   for (int row = 0; row < height; row++)
@@ -116,205 +116,203 @@ void writeImage() {
       oiioPixels[(row*width+col)*4 + 3] = processedPixels[row][col].a;
     }
 
-    // Create output image
+// Create output image
     ImageOutput *out = ImageOutput::create(outImage);
 
-    // Error handeling
+// Error handeling
     if (!out) {
       printf("Error writing image: %s\n", geterror().c_str());
       exit(EXIT_FAILURE);
     }
 
-    // Create output image spec
+// Create output image spec
     ImageSpec spec (width, height, 4, TypeDesc::FLOAT);
 
-    // Open output image file
+// Open output image file
     out->open(outImage, spec);
 
-    // Write output image to disk and close
+// Write output image to disk and close
     out->write_image(TypeDesc::FLOAT, &oiioPixels[0]);
     out->close();
     delete out;
-}
-
-void process() {
-  float smSharp[3][3] = {
-    {0.0, 1.0, 1.0},
-    {1.0, 0.0, 1.0},
-    {0.0, 1.0, 0.0}
-  };
-
-  float mdSharp[5][5] = {
-    {0.0, 0.0, 1.0, 0.0, 0.0},
-    {0.0, 0.0, 1.0, 0.0, 0.0},
-    {1.0, 1.0, 0.0, 1.0, 1.0},
-    {0.0, 0.0, 1.0, 0.0, 0.0},
-    {0.0, 0.0, 1.0, 0.0, 0.0},
-  };
-
-  float lgSharp[7][7] = {
-    {0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0},
-    {0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0},
-    {0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0},
-    {1.0, 1.0, 1.0, 0.0, 1.0, 1.0, 1.0},
-    {0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0},
-    {0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0},
-    {0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0}
-  };
-
-  float smSmooth[3][3] = {
-    {1.0, 1.0, 1.0},
-    {1.0, 1.0, 1.0},
-    {1.0, 1.0, 1.0}
-  };
-
-  float mdSmooth[5][5] = {
-    {1.0, 1.0, 1.0, 1.0, 1.0},
-    {1.0, 1.0, 1.0, 1.0, 1.0},
-    {1.0, 1.0, 1.0, 1.0, 1.0},
-    {1.0, 1.0, 1.0, 1.0, 1.0},
-    {1.0, 1.0, 1.0, 1.0, 1.0}
-  };
-
-  float lgSmooth[7][7] = {
-    {1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0},
-    {1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0},
-    {1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0},
-    {1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0},
-    {1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0},
-    {1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0},
-    {1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0}
-  };
-
-  // Initalize 2d array
-  processedPixels = new rgba_pixel*[height];
-  processedPixels[0] = new rgba_pixel[width*height];
-
-  for (int i=1; i<height; i++) {
-    processedPixels[i] = processedPixels[i-1] + width;
   }
 
+  void process() {
+    float smSharp[3][3] = {
+      {0.0, 1.0, 1.0},
+      {1.0, 0.0, 1.0},
+      {0.0, 1.0, 0.0}
+    };
 
-  for (int row = 0; row < height; row++)
-    for (int col = 0; col < width; col++){
-      rgba_pixel p = pixels[row][col];
-      if(globalGainFlag) {
-        p = p + globalGainValue;
-      } else {
-        p.r = p.r + redGainValue;
-        p.g = p.g + greenGainValue;
-        p.b = p.b + blueGainValue;
-      }
+    float mdSharp[5][5] = {
+      {0.0, 0.0, 1.0, 0.0, 0.0},
+      {0.0, 0.0, 1.0, 0.0, 0.0},
+      {1.0, 1.0, 0.0, 1.0, 1.0},
+      {0.0, 0.0, 1.0, 0.0, 0.0},
+      {0.0, 0.0, 1.0, 0.0, 0.0},
+    };
 
-      if(globalBiasFlag) {
-        p = p * globalBiasValue;
-      } else {
-        p.r = p.r * redBiasValue;
-        p.g = p.g * greenBiasValue;
-        p.b = p.b * blueBiasValue;
-      }
+    float lgSharp[7][7] = {
+      {0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0},
+      {0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0},
+      {0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0},
+      {1.0, 1.0, 1.0, 0.0, 1.0, 1.0, 1.0},
+      {0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0},
+      {0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0},
+      {0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0}
+    };
 
-      processedPixels[row][col] = p;
+    float smSmooth[3][3] = {
+      {1.0, 1.0, 1.0},
+      {1.0, 1.0, 1.0},
+      {1.0, 1.0, 1.0}
+    };
+
+    float mdSmooth[5][5] = {
+      {1.0, 1.0, 1.0, 1.0, 1.0},
+      {1.0, 1.0, 1.0, 1.0, 1.0},
+      {1.0, 1.0, 1.0, 1.0, 1.0},
+      {1.0, 1.0, 1.0, 1.0, 1.0},
+      {1.0, 1.0, 1.0, 1.0, 1.0}
+    };
+
+    float lgSmooth[7][7] = {
+      {1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0},
+      {1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0},
+      {1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0},
+      {1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0},
+      {1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0},
+      {1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0},
+      {1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0}
+    };
+
+// Initalize 2d array
+    processedPixels = new rgba_pixel*[height];
+    processedPixels[0] = new rgba_pixel[width*height];
+
+    for (int i=1; i<height; i++) {
+      processedPixels[i] = processedPixels[i-1] + width;
     }
 
-    int radius;
-    int div;
 
-    if(smoothFlag || sharpFlag) {
-      if(smoothFlag) {
-        switch (filterStrength) {
-          case 1:
+    for (int row = 0; row < height; row++)
+      for (int col = 0; col < width; col++) {
+        rgba_pixel p = pixels[row][col];
+        if(globalGainFlag) {
+          p = p * globalGainValue;
+        } else {
+          p.r = p.r * redGainValue;
+          p.g = p.g * greenGainValue;
+          p.b = p.b * blueGainValue;
+        }
+
+        if(globalBiasFlag) {
+          p = p + globalBiasValue;
+        } else {
+          p.r = p.r + redBiasValue;
+          p.g = p.g + greenBiasValue;
+          p.b = p.b + blueBiasValue;
+        }
+
+        processedPixels[row][col] = p;
+      }
+
+      int radius;
+      int div;
+
+      if(smoothFlag || sharpFlag) {
+        if(smoothFlag) {
+          switch (filterStrength) {
+            case 1:
             radius = 3/2;
             div = 4;
             break;
-          case 2:
+            case 2:
             radius = 5/2;
             div = 8;
             break;
-          case 3:
+            case 3:
             radius = 7/2;
             div = 12;
             break;
-        }
-      } else if(sharpFlag) {
-        switch (filterStrength) {
-          case 1:
+          }
+        } else if(sharpFlag) {
+          switch (filterStrength) {
+            case 1:
             radius = 3/2;
             div = 9;
             break;
-          case 2:
+            case 2:
             radius = 5/2;
             div = 25;
             break;
-          case 3:
+            case 3:
             radius = 7/2;
             div = 79;
             break;
+          }
         }
-      }
-    }
 
-    for (int row = 0; row < height; row++)
-      for (int col = 0; col < width; col++){
-        float redSum = 0.0;
-        float greenSum = 0.0;
-        float blueSum = 0.0;
-        for(int i = -radius; i <= radius; i++)
-          for(int j = -radius; j <= radius; j++){
-            if(smoothFlag || sharpFlag) {
-              if(smoothFlag) {
-                switch (filterStrength) {
-                  case 1:
+        for (int row = 0; row < height; row++)
+          for (int col = 0; col < width; col++) {
+            float redSum = 0.0;
+            float greenSum = 0.0;
+            float blueSum = 0.0;
+            for(int i = -radius; i <= radius; i++)
+              for(int j = -radius; j <= radius; j++) {
+                if(smoothFlag) {
+                  switch (filterStrength) {
+                    case 1:
                     redSum += processedPixels[modulo(row + i,height)][modulo(col + j,width)].r * smSmooth[i][j];
                     greenSum += processedPixels[modulo(row + i,height)][modulo(col + j,width)].g * smSmooth[i][j];
                     blueSum += processedPixels[modulo(row + i,height)][modulo(col + j,width)].b * smSmooth[i][j];
                     break;
-                  case 2:
+                    case 2:
                     redSum += processedPixels[modulo(row + i,height)][modulo(col + j,width)].r * mdSmooth[i][j];
                     greenSum += processedPixels[modulo(row + i,height)][modulo(col + j,width)].g * mdSmooth[i][j];
                     blueSum += processedPixels[modulo(row + i,height)][modulo(col + j,width)].b * mdSmooth[i][j];
                     break;
-                  case 3:
+                    case 3:
                     redSum += processedPixels[modulo(row + i,height)][modulo(col + j,width)].r * lgSmooth[i][j];
                     greenSum += processedPixels[modulo(row + i,height)][modulo(col + j,width)].g * lgSmooth[i][j];
                     blueSum += processedPixels[modulo(row + i,height)][modulo(col + j,width)].b * lgSmooth[i][j];
                     break;
-                }
-              } else if(sharpFlag) {
-                switch (filterStrength) {
-                  case 1:
+                  }
+                } else if(sharpFlag) {
+                  switch (filterStrength) {
+                    case 1:
                     redSum += processedPixels[modulo(row + i,height)][modulo(col + j,width)].r * smSharp[i][j];
                     greenSum += processedPixels[modulo(row + i,height)][modulo(col + j,width)].g * smSharp[i][j];
                     blueSum += processedPixels[modulo(row + i,height)][modulo(col + j,width)].b * smSharp[i][j];
                     break;
-                  case 2:
+                    case 2:
                     redSum += processedPixels[modulo(row + i,height)][modulo(col + j,width)].r * mdSharp[i][j];
                     greenSum += processedPixels[modulo(row + i,height)][modulo(col + j,width)].g * mdSharp[i][j];
                     blueSum += processedPixels[modulo(row + i,height)][modulo(col + j,width)].b * mdSharp[i][j];
                     break;
-                  case 3:
+                    case 3:
                     redSum += processedPixels[modulo(row + i,height)][modulo(col + j,width)].r * lgSharp[i][j];
                     greenSum += processedPixels[modulo(row + i,height)][modulo(col + j,width)].g * lgSharp[i][j];
                     blueSum += processedPixels[modulo(row + i,height)][modulo(col + j,width)].b * lgSharp[i][j];
                     break;
+                  }
                 }
               }
+
+              redSum /= div;
+              greenSum /= div;
+              blueSum /= div;
+
+              rgba_pixel p;
+              p.r = redSum;
+              p.g = greenSum;
+              p.b = blueSum;
+              p.a = 1.0;
+
+              processedPixels[row][col] = p;
             }
           }
-
-          redSum /= div;
-          greenSum /= div;
-          blueSum /= div;
-
-          rgba_pixel p;
-          p.r = redSum;
-          p.g = greenSum;
-          p.b = blueSum;
-          p.a = 1.0;
-
-          processedPixels[row][col] = p;
-        }
-      }
+}
 
 /**
  * Main program
@@ -327,6 +325,8 @@ int main(int argc, char** argv) {
 int c;
 
   int option_index = 0;
+
+  std::cout << "Processing options..." << std::endl;
 
   while((c = getopt(argc, argv, "1:r:g:b:2:R:G:B:sS#:I:O:")) >= 0) {
     switch(c) {
@@ -381,11 +381,14 @@ int c;
     }
   }
 
-  //readImage(inImage);
+  std::cout << "Reading image..." << std::endl;
+  readImage(inImage);
 
-  //process();
+  std::cout << "Processing image..." << std::endl;
+  process();
 
-  //writeImage();
+  std::cout << "Writing image..." << std::endl;
+  writeImage();
 
   return EXIT_SUCCESS;
 }

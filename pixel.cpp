@@ -43,10 +43,10 @@ rgba_pixel& operator* (const float scalar, rgba_pixel p){
   return p * scalar;
 }
 
-std::ostream& rgba_pixel::operator<<(std::ostream& os){
+std::ostream& operator<<(std::ostream& os, const rgba_pixel& p){
   os << std::fixed;
   os << std::setprecision(4);
-  os << "(" << r << "," << g << "," << b << "," << a << ")";
+  os << "(" << p.r << "," << p.g << "," << p.b << "," << p.a << ")";
   return os;
 }
 
