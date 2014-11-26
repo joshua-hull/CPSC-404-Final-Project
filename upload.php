@@ -14,47 +14,47 @@
 
     $parameters = '';
     if($globalGain) {
-      $parameters = $parameters . ' --globalGain ' . $meta['gain']['global'];
+      $parameters = $parameters . ' -1 ' . $meta['gain']['global'];
     } else {
-      $parameters = $parameters . ' --redGain ' . $meta['gain']['r'];
-      $parameters = $parameters . ' --greenGain ' . $meta['gain']['g'];
-      $parameters = $parameters . ' --blueGain ' . $meta['gain']['b'];
+      $parameters = $parameters . ' -r ' . $meta['gain']['r'];
+      $parameters = $parameters . ' -g ' . $meta['gain']['g'];
+      $parameters = $parameters . ' -b ' . $meta['gain']['b'];
     }
 
     if($globalBias) {
-      $parameters = $parameters . ' --globalBias '. $meta['bias']['global'];
+      $parameters = $parameters . ' -2 '. $meta['bias']['global'];
     } else {
-      $parameters = $parameters . ' --redBias ' . $meta['bias']['r'];
-      $parameters = $parameters . ' --greenBias ' . $meta['bias']['g'];
-      $parameters = $parameters . ' --blueBias ' . $meta['bias']['b'];
+      $parameters = $parameters . ' -R ' . $meta['bias']['r'];
+      $parameters = $parameters . ' -G ' . $meta['bias']['g'];
+      $parameters = $parameters . ' -B ' . $meta['bias']['b'];
     }
 
     if(strcmp($meta['filter']['type'],'smooth') == 0) {
-      $parameters = $parameters . ' --smooth';
+      $parameters = $parameters . ' -s';
       switch ($meta['filter']['strength']) {
         case 'high':
-          $parameters = $parameters . ' --strength 3';
+          $parameters = $parameters . ' -# 3';
           break;
         case 'medium':
-          $parameters = $parameters . ' --strength 2';
+          $parameters = $parameters . ' -# 2';
           break;
         case 'low':
-          $parameters = $parameters . ' --strength 1';
+          $parameters = $parameters . ' -# 1';
           break;
         default:
           break;
       }
     } else if(strcmp($meta['filter']['type'],'sharp') == 0) {
-      $parameters = $parameters . ' --sharp';
+      $parameters = $parameters . ' -S';
       switch ($meta['filter']['strength']) {
         case 'high':
-          $parameters = $parameters . ' --strength 3';
+          $parameters = $parameters . ' -# 3';
           break;
         case 'medium':
-          $parameters = $parameters . ' --strength 2';
+          $parameters = $parameters . ' -# 2';
           break;
         case 'low':
-          $parameters = $parameters . ' --strength 1';
+          $parameters = $parameters . ' -# 1';
           break;
         default:
           break;

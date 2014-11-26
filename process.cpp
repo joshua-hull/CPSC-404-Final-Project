@@ -330,19 +330,52 @@ int c;
 
   while((c = getopt(argc, argv, "1:r:g:b:2:R:G:B:sS#:I:O:")) >= 0) {
     switch(c) {
+      // I/O Options
       case 'I':
         inImage = optarg;
         break;
       case 'O':
         outImage = optarg;
         break;
+
+      // Gain Adjustments
       case '1':
         globalGainFlag = true;
-        globalGainValue = atoi(optarg);
+        globalGainValue = atof(optarg);
         break;
       case 'r':
         redGainValue = atof(optarg);
         break;
+      case 'g':
+        greenGainValue = atof(optarg);
+        break;
+      case 'b':
+        blueGainValue = atof(optarg);
+        break;
+
+      // Bias Adjustments
+      case '2':
+        globalBiasFlag = true;
+        globalBiasValue = atof(optarg);
+        break;
+      case 'R':
+        redBiasValue = atof(optarg);
+        break;
+      case 'G':
+        greenBiasValue = atof(optarg);
+        break;
+
+      // Filtering Options
+      case 's':
+        smoothFlag = true;
+        break;
+      case 'S':
+        sharpFlag = true;
+        break;
+      case '#':
+        filterStrength = atoi(optarg);
+        break;
+
       default:
         break;
     }
