@@ -13,6 +13,8 @@
     $globalBias = $meta['bias']['global'];
 
     $parameters = '';
+    $parameters = $parameters . '-I ' . $originalName;
+    $parameters = $parameters . '-O ' . $newName;
     if($globalGain) {
       $parameters = $parameters . ' -1 ' . $meta['gain']['global'];
     } else {
@@ -60,14 +62,21 @@
           break;
       }
     }
-    exec('./process' . $parameters . ' >>process.txt 2>&1');
+
+    $output = array();
+    //putenv('LD_LIBRARY_PATH=/group/dpa/lib');
+    exec('./process' . $parameters, $output);
 
 
     $fileContent = @file_get_contents($newName);
     $finfo = finfo_open(FILEINFO_MIME_TYPE);
     $dataUrl = 'data:' . @finfo_file($finfo,$newName) . ';base64,' . base64_encode($fileContent);
     $json = json_encode(array(
-      'dataUrl' => $dataUrl
+      'dataUrl' => $dataUrl,
+      'debug' => array(
+          'parameters' => $parameters,
+          'output' => $output
+        )
     ));
 
     //fclose($newName);

@@ -224,32 +224,32 @@ void writeImage() {
         if(smoothFlag) {
           switch (filterStrength) {
             case 1:
-            radius = 3/2;
-            div = 4;
+              radius = 3/2;
+              div = 4;
             break;
             case 2:
-            radius = 5/2;
-            div = 8;
-            break;
+              radius = 5/2;
+              div = 8;
+              break;
             case 3:
-            radius = 7/2;
-            div = 12;
-            break;
+              radius = 7/2;
+              div = 12;
+              break;
           }
         } else if(sharpFlag) {
           switch (filterStrength) {
             case 1:
-            radius = 3/2;
-            div = 9;
-            break;
+              radius = 3/2;
+              div = 9;
+              break;
             case 2:
-            radius = 5/2;
-            div = 25;
-            break;
+              radius = 5/2;
+              div = 25;
+              break;
             case 3:
-            radius = 7/2;
-            div = 79;
-            break;
+              radius = 7/2;
+              div = 79;
+              break;
           }
         }
 
@@ -263,38 +263,38 @@ void writeImage() {
                 if(smoothFlag) {
                   switch (filterStrength) {
                     case 1:
-                    redSum += processedPixels[modulo(row + i,height)][modulo(col + j,width)].r * smSmooth[i][j];
-                    greenSum += processedPixels[modulo(row + i,height)][modulo(col + j,width)].g * smSmooth[i][j];
-                    blueSum += processedPixels[modulo(row + i,height)][modulo(col + j,width)].b * smSmooth[i][j];
-                    break;
+                      redSum += processedPixels[modulo(row + i,height)][modulo(col + j,width)].r * smSmooth[i][j];
+                      greenSum += processedPixels[modulo(row + i,height)][modulo(col + j,width)].g * smSmooth[i][j];
+                      blueSum += processedPixels[modulo(row + i,height)][modulo(col + j,width)].b * smSmooth[i][j];
+                      break;
                     case 2:
-                    redSum += processedPixels[modulo(row + i,height)][modulo(col + j,width)].r * mdSmooth[i][j];
-                    greenSum += processedPixels[modulo(row + i,height)][modulo(col + j,width)].g * mdSmooth[i][j];
-                    blueSum += processedPixels[modulo(row + i,height)][modulo(col + j,width)].b * mdSmooth[i][j];
-                    break;
+                      redSum += processedPixels[modulo(row + i,height)][modulo(col + j,width)].r * mdSmooth[i][j];
+                      greenSum += processedPixels[modulo(row + i,height)][modulo(col + j,width)].g * mdSmooth[i][j];
+                      blueSum += processedPixels[modulo(row + i,height)][modulo(col + j,width)].b * mdSmooth[i][j];
+                      break;
                     case 3:
-                    redSum += processedPixels[modulo(row + i,height)][modulo(col + j,width)].r * lgSmooth[i][j];
-                    greenSum += processedPixels[modulo(row + i,height)][modulo(col + j,width)].g * lgSmooth[i][j];
-                    blueSum += processedPixels[modulo(row + i,height)][modulo(col + j,width)].b * lgSmooth[i][j];
-                    break;
+                      redSum += processedPixels[modulo(row + i,height)][modulo(col + j,width)].r * lgSmooth[i][j];
+                      greenSum += processedPixels[modulo(row + i,height)][modulo(col + j,width)].g * lgSmooth[i][j];
+                      blueSum += processedPixels[modulo(row + i,height)][modulo(col + j,width)].b * lgSmooth[i][j];
+                      break;
                   }
                 } else if(sharpFlag) {
                   switch (filterStrength) {
                     case 1:
-                    redSum += processedPixels[modulo(row + i,height)][modulo(col + j,width)].r * smSharp[i][j];
-                    greenSum += processedPixels[modulo(row + i,height)][modulo(col + j,width)].g * smSharp[i][j];
-                    blueSum += processedPixels[modulo(row + i,height)][modulo(col + j,width)].b * smSharp[i][j];
-                    break;
+                      redSum += processedPixels[modulo(row + i,height)][modulo(col + j,width)].r * smSharp[i][j];
+                      greenSum += processedPixels[modulo(row + i,height)][modulo(col + j,width)].g * smSharp[i][j];
+                      blueSum += processedPixels[modulo(row + i,height)][modulo(col + j,width)].b * smSharp[i][j];
+                      break;
                     case 2:
-                    redSum += processedPixels[modulo(row + i,height)][modulo(col + j,width)].r * mdSharp[i][j];
-                    greenSum += processedPixels[modulo(row + i,height)][modulo(col + j,width)].g * mdSharp[i][j];
-                    blueSum += processedPixels[modulo(row + i,height)][modulo(col + j,width)].b * mdSharp[i][j];
-                    break;
+                      redSum += processedPixels[modulo(row + i,height)][modulo(col + j,width)].r * mdSharp[i][j];
+                      greenSum += processedPixels[modulo(row + i,height)][modulo(col + j,width)].g * mdSharp[i][j];
+                      blueSum += processedPixels[modulo(row + i,height)][modulo(col + j,width)].b * mdSharp[i][j];
+                      break;
                     case 3:
-                    redSum += processedPixels[modulo(row + i,height)][modulo(col + j,width)].r * lgSharp[i][j];
-                    greenSum += processedPixels[modulo(row + i,height)][modulo(col + j,width)].g * lgSharp[i][j];
-                    blueSum += processedPixels[modulo(row + i,height)][modulo(col + j,width)].b * lgSharp[i][j];
-                    break;
+                      redSum += processedPixels[modulo(row + i,height)][modulo(col + j,width)].r * lgSharp[i][j];
+                      greenSum += processedPixels[modulo(row + i,height)][modulo(col + j,width)].g * lgSharp[i][j];
+                      blueSum += processedPixels[modulo(row + i,height)][modulo(col + j,width)].b * lgSharp[i][j];
+                      break;
                   }
                 }
               }
