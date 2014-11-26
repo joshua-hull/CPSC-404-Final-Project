@@ -6,5 +6,6 @@ TODO
 	- [X] Debug bias
 	- [ ] Debug smoothing
 	- [ ] Debug sharpening
+	
 -[ ] Debug upload.php
 	- [ ] Debug calling code for process.cpp
