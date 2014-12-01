@@ -62,7 +62,11 @@
     <div class="row">
       <div class="col-md-4">
         <div class="well">
-          <h3>Adjust Gain</h3>
+          <h3>Adjust Gain
+            <button type="button" class="btn btn-default btn-lg" data-toggle="tooltip" title="<p align='left'>Scale each pixel in the image by the specified value. In the below equation we are setting alpha.</p><p align='left'>Set each color channel independently or adjust the entire image at once.</p><img src=img/math.png>" data-placement="bottom">
+              <span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span>
+            </button>
+          </h3>
           <hr/>
           <div id="gainRedSlider"></div>
           <div>
@@ -87,7 +91,11 @@
       </div>
       <div class="col-md-4">
         <div class="well">
-          <h3>Adjust Bias</h3>
+          <h3>Adjust Bias
+            <button type="button" class="btn btn-default btn-lg" data-toggle="tooltip" title="<p align='left'>Offset each pixel in the image by the specified value. In the below equation we are setting beta.</p><p align='left'>Set each color channel independently or adjust the entire image at once.</p><img src=img/math.png>" data-placement="bottom">
+              <span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span>
+            </button>
+          </h3>
           <hr/>
           <div id="biasRedSlider"></div>
           <div>
@@ -112,7 +120,11 @@
       </div>
       <div class="col-md-4">
         <div class="well">
-          <h3>Sharpening/Smoothing</h3>
+          <h3>Sharpening/Smoothing
+            <button type="button" class="btn btn-default btn-lg" data-toggle="tooltip" title="<p align='left'>Smoothing blends blends the colors of pixels together to have a watercolor-like effect.</p><p align='left'>Sharpening highlights the edges in an image.</p><p align='left'>The higher the strength of the filter the more pronounced the effects.</p>" data-placement="bottom">
+              <span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span>
+            </button>
+          </h3>
           <hr/>
           <form id='filtering'>
             <div id="mode-group" class="btn-group" data-toggle="buttons">

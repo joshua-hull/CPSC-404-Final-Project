@@ -225,4 +225,7 @@ jQuery(document).ready(function(){
     allowedFileTypes: ['image'],
     browseLabel: 'Select Image'
   });
+
+  // Tooltips
+  $('[data-toggle="tooltip"]').tooltip({'html': true});
 });

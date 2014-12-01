@@ -64,8 +64,8 @@
     }
 
     $output = array();
-    //putenv('LD_LIBRARY_PATH=/group/dpa/lib');
-    exec('./process' . $parameters, $output);
+    putenv('LD_LIBRARY_PATH=/group/dpa/lib');
+    exec('./process' . $parameters, $output, $retval);
 
 
     $fileContent = @file_get_contents($newName);
@@ -75,7 +75,8 @@
       'dataUrl' => $dataUrl,
       'debug' => array(
           'parameters' => $parameters,
-          'output' => $output
+          'output' => $output,
+          'returnValue' => $retval
         )
     ));
 
