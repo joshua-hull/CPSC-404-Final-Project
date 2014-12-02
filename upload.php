@@ -3,8 +3,7 @@
   * Joshua Hull (jhull@clemson.edu) and Alex Berk (aberk@clemson.edu)
   * CPSC 4040-001 Fall 2014 Final Project
   */
-    if($_SERVER['REQUEST_METHOD'] == 'POST') {
-
+  if($_SERVER['REQUEST_METHOD'] == 'POST') {
     $originalName = $_FILES['image']['tmp_name'];
     $ext = pathinfo($_FILES['image']['name'], PATHINFO_EXTENSION);
 
@@ -13,6 +12,7 @@
     $originalName = $originalName . '.' . $ext;
 
     $newName = tmpfile();
+    $newName = stream_get_meta_data($newName)['uri'];
     rename($newName, $newName . '.png');
     $newName = $newName . '.png';
 
@@ -24,7 +24,7 @@
     $parameters = $parameters . ' -I ' . $originalName;
     $parameters = $parameters . ' -O ' . $newName;
     if($globalGain) {
-      $parameters = $parameters . ' -1 ' . $meta['gain']['global'];
+      $parameters = $parameters . ' -1 ' . $meta['gain']['value'];
     } else {
       $parameters = $parameters . ' -r ' . $meta['gain']['r'];
       $parameters = $parameters . ' -g ' . $meta['gain']['g'];
@@ -32,7 +32,7 @@
     }
 
     if($globalBias) {
-      $parameters = $parameters . ' -2 '. $meta['bias']['global'];
+      $parameters = $parameters . ' -2 '. $meta['bias']['value'];
     } else {
       $parameters = $parameters . ' -R ' . $meta['bias']['r'];
       $parameters = $parameters . ' -G ' . $meta['bias']['g'];
@@ -72,8 +72,8 @@
     }
 
     $output = array();
-    //putenv('LD_LIBRARY_PATH=/group/dpa/lib');
-    exec('/Users/aberk/repos/CPSC-404-Final-Project/process ' . $parameters. ' 2>&1', $output, &$retval);
+    exec('./process' . $parameters. ' 2>&1', $output, $retval);
+
 
     $fileContent = @file_get_contents($newName);
     $finfo = finfo_open(FILEINFO_MIME_TYPE);

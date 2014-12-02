@@ -4,10 +4,10 @@
  */
 
 // Gain variables
-var gainRedSliderValue;
-var gainGreenSliderValue;
-var gainBlueSliderValue;
-var gainGlobalSliderValue;
+var gainRedSliderValue = 1;
+var gainGreenSliderValue = 1;
+var gainBlueSliderValue = 1;
+var gainGlobalSliderValue = 1;
 
 // Bias variables
 var biasRedSliderValue;
@@ -92,6 +92,16 @@ function submitPressed () {
 }
 
 jQuery(document).ready(function(){
+  // Initalize values
+  gainRedSliderValue = 1;
+  gainGreenSliderValue = 1;
+  gainBlueSliderValue = 1;
+  gainGlobalSliderValue = 1;
+  jQuery("#gainRedSliderLabel").text("Value: " + gainRedSliderValue);
+  jQuery("#gainGreenSliderLabel").text("Value: " + gainRedSliderValue);
+  jQuery("#gainBlueSliderLabel").text("Value: " + gainRedSliderValue);
+  jQuery("#gainGlobalSliderLabel").text("Value: " + gainRedSliderValue);
+
   // Adjusting Gain
 
   // Red Channel
@@ -99,13 +109,10 @@ jQuery(document).ready(function(){
     max: 2.501,
     min: -2.5,
     step: 0.1,
+    value: 1.0,
     slide: function(event, ui) {
       gainRedSliderValue = ui.value;
       jQuery("#gainRedSliderLabel").text("Value: " + gainRedSliderValue);
-    },
-    create: function(event, ui) {
-      ui.value = 0;
-      gainRedSliderValue = 0;
     }
   }).css("background","#ff0000");
 
@@ -114,13 +121,10 @@ jQuery(document).ready(function(){
     max: 2.501,
     min: -2.5,
     step: 0.1,
+    value: 1,
     slide: function(event, ui) {
       gainGreenSliderValue = ui.value;
       jQuery("#gainGreenSliderLabel").text("Value: " + gainGreenSliderValue);
-    },
-    create: function(event, ui) {
-      ui.value = 0;
-      gainGreenSliderValue = 0;
     }
   }).css("background","#00ff00");
 
@@ -129,13 +133,10 @@ jQuery(document).ready(function(){
     max: 2.501,
     min: -2.5,
     step: 0.1,
+    value: 1,
     slide: function( event, ui ) {
       gainBlueSliderValue = ui.value;
       jQuery("#gainBlueSliderLabel").text("Value: " + gainBlueSliderValue);
-    },
-    create: function(event, ui) {
-      ui.value = 0;
-      gainBlueSliderValue = 0;
     }
   }).css("background","#0000ff");
 
@@ -144,13 +145,10 @@ jQuery(document).ready(function(){
     max: 2.501,
     min: -2.5,
     step: 0.1,
+    value: 1,
     slide: function( event, ui ) {
       gainGlobalSliderValue = ui.value;
       jQuery("#gainGlobalSliderLabel").text("Value: " + gainGlobalSliderValue);
-    },
-    create: function(event, ui) {
-      ui.value = 0;
-      gainGlobalSliderValue = 0;
     }
   }).css("background","#000000");
 
@@ -159,61 +157,45 @@ jQuery(document).ready(function(){
 
   // Red Channel
   jQuery("#biasRedSlider").slider({
-    max: 2.501,
-    min: -2.5,
+    max: 1,
+    min: -1,
     step: 0.1,
     slide: function(event, ui) {
       biasRedSliderValue = ui.value;
       jQuery("#biasRedSliderLabel").text("Value: " + biasRedSliderValue);
-    },
-    create: function(event, ui) {
-      ui.value = 0;
-      biasRedSliderValue = 0;
     }
   }).css("background","#ff0000");
 
   // Green Channel
   jQuery("#biasGreenSlider").slider({
-    max: 2.501,
-    min: -2.5,
+    max: 1,
+    min: -1,
     step: 0.1,
     slide: function(event, ui) {
       biasGreenSliderValue = ui.value;
       jQuery("#biasGreenSliderLabel").text("Value: " + biasGreenSliderValue);
-    },
-    create: function(event, ui) {
-      ui.value = 0;
-      biasGreenSliderValue = 0;
     }
   }).css("background","#00ff00");
 
   // Blue Channel
   jQuery("#biasBlueSlider").slider({
-    max: 2.501,
-    min: -2.5,
+    max: 1,
+    min: -1,
     step: 0.1,
     slide: function( event, ui ) {
       biasBlueSliderValue = ui.value;
       jQuery("#biasBlueSliderLabel").text("Value: " + biasBlueSliderValue);
-    },
-    create: function(event, ui) {
-      ui.value = 0;
-      biasBlueSliderValue = 0;
     }
   }).css("background","#0000ff");
 
   // Global Adjustment
   jQuery("#biasGlobalSlider").slider({
-    max: 2.501,
-    min: -2.5,
+    max: 1,
+    min: -1,
     step: 0.1,
     slide: function( event, ui ) {
       biasGlobalSliderValue = ui.value;
       jQuery("#biasGlobalSliderLabel").text("Value: " + biasGlobalSliderValue);
-    },
-    create: function(event, ui) {
-      ui.value = 0;
-      biasGlobalSliderValue = 0;
     }
   }).css("background","#000000");
 
