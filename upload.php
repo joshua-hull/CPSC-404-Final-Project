@@ -5,8 +5,15 @@
   */
   if($_SERVER['REQUEST_METHOD'] == 'POST') {
     $originalName = $_FILES['image']['tmp_name'];
-    //$newName = $originalName;
+    $ext = pathinfo($_FILES['image']['name'], PATHINFO_EXTENSION);
+
+    rename($originalName, $originalName . $ext);
+
+    $originalName = $originalName . $ext;
+
     $newName = tmpfile();
+    rename($newName, $newName . '.png');
+    $newName = $newName . '.png';
 
     $meta = json_decode($_POST['metaData'], true);
     $globalGain = $meta['gain']['global'];
@@ -65,7 +72,7 @@
 
     $output = array();
     putenv('LD_LIBRARY_PATH=/group/dpa/lib');
-    exec('./process' . $parameters, $output, $retval);
+    exec('/web/home/jhull/public_html/CPSC404/process' . $parameters. ' 2>&1', $output, $retval);
 
 
     $fileContent = @file_get_contents($newName);
