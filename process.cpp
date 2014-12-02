@@ -139,27 +139,27 @@ void writeImage() {
 
   void process() {
     float smSharp[3][3] = {
-      {0.0, 1.0, 1.0},
-      {1.0, 0.0, 1.0},
-      {0.0, 1.0, 0.0}
+      { 0.0, -3.0,  0.0},
+      {-3.0, 21.0, -3.0},
+      { 0.0, -3.0,  0.0}
     };
 
     float mdSharp[5][5] = {
-      {0.0, 0.0, 1.0, 0.0, 0.0},
-      {0.0, 0.0, 1.0, 0.0, 0.0},
-      {1.0, 1.0, 0.0, 1.0, 1.0},
-      {0.0, 0.0, 1.0, 0.0, 0.0},
-      {0.0, 0.0, 1.0, 0.0, 0.0},
+      { 0.0,  0.0, -5.0,  0.0,  0.0},
+      { 0.0,  0.0, -5.0,  0.0,  0.0},
+      {-5.0, -5.0, 65.0, -5.0, -5.0},
+      { 0.0,  0.0, -5.0,  0.0,  0.0},
+      { 0.0,  0.0, -5.0,  0.0,  0.0},
     };
 
     float lgSharp[7][7] = {
-      {0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0},
-      {0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0},
-      {0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0},
-      {1.0, 1.0, 1.0, 0.0, 1.0, 1.0, 1.0},
-      {0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0},
-      {0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0},
-      {0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0}
+      { 0.0,  0.0,  0.0, -7.0,  0.0,  0.0,  0.0},
+      { 0.0,  0.0,  0.0, -7.0,  0.0,  0.0,  0.0},
+      { 0.0,  0.0,  0.0, -7.0,  0.0,  0.0,  0.0},
+      {-7.0, -7.0, -7.0,133.0, -7.0, -7.0, -7.0},
+      { 0.0,  0.0,  0.0, -7.0,  0.0,  0.0,  0.0},
+      { 0.0,  0.0,  0.0, -7.0,  0.0,  0.0,  0.0},
+      { 0.0,  0.0,  0.0, -7.0,  0.0,  0.0,  0.0}
     };
 
     float smSmooth[3][3] = {
@@ -218,22 +218,22 @@ void writeImage() {
       }
 
       int radius;
-      int div;
+      float div;
 
       if(smoothFlag || sharpFlag) {
         if(smoothFlag) {
           switch (filterStrength) {
             case 1:
               radius = 3/2;
-              div = 4;
+              div = 9;
             break;
             case 2:
               radius = 5/2;
-              div = 8;
+              div = 25;
               break;
             case 3:
               radius = 7/2;
-              div = 12;
+              div = 49;
               break;
           }
         } else if(sharpFlag) {
@@ -248,7 +248,7 @@ void writeImage() {
               break;
             case 3:
               radius = 7/2;
-              div = 79;
+              div = 49;
               break;
           }
         }
@@ -263,37 +263,37 @@ void writeImage() {
                 if(smoothFlag) {
                   switch (filterStrength) {
                     case 1:
-                      redSum += processedPixels[modulo(row + i,height)][modulo(col + j,width)].r * smSmooth[i][j];
-                      greenSum += processedPixels[modulo(row + i,height)][modulo(col + j,width)].g * smSmooth[i][j];
-                      blueSum += processedPixels[modulo(row + i,height)][modulo(col + j,width)].b * smSmooth[i][j];
+                      redSum += processedPixels[modulo(row + i,height)][modulo(col + j,width)].r * smSmooth[i+radius][j+radius];
+                      greenSum += processedPixels[modulo(row + i,height)][modulo(col + j,width)].g * smSmooth[i+radius][j+radius];
+                      blueSum += processedPixels[modulo(row + i,height)][modulo(col + j,width)].b * smSmooth[i+radius][j+radius];
                       break;
                     case 2:
-                      redSum += processedPixels[modulo(row + i,height)][modulo(col + j,width)].r * mdSmooth[i][j];
-                      greenSum += processedPixels[modulo(row + i,height)][modulo(col + j,width)].g * mdSmooth[i][j];
-                      blueSum += processedPixels[modulo(row + i,height)][modulo(col + j,width)].b * mdSmooth[i][j];
+                      redSum += processedPixels[modulo(row + i,height)][modulo(col + j,width)].r * mdSmooth[i+radius][j+radius];
+                      greenSum += processedPixels[modulo(row + i,height)][modulo(col + j,width)].g * mdSmooth[i+radius][j+radius];
+                      blueSum += processedPixels[modulo(row + i,height)][modulo(col + j,width)].b * mdSmooth[i+radius][j+radius];
                       break;
                     case 3:
-                      redSum += processedPixels[modulo(row + i,height)][modulo(col + j,width)].r * lgSmooth[i][j];
-                      greenSum += processedPixels[modulo(row + i,height)][modulo(col + j,width)].g * lgSmooth[i][j];
-                      blueSum += processedPixels[modulo(row + i,height)][modulo(col + j,width)].b * lgSmooth[i][j];
+                      redSum += processedPixels[modulo(row + i,height)][modulo(col + j,width)].r * lgSmooth[i+radius][j+radius];
+                      greenSum += processedPixels[modulo(row + i,height)][modulo(col + j,width)].g * lgSmooth[i+radius][j+radius];
+                      blueSum += processedPixels[modulo(row + i,height)][modulo(col + j,width)].b * lgSmooth[i+radius][j+radius];
                       break;
                   }
                 } else if(sharpFlag) {
                   switch (filterStrength) {
                     case 1:
-                      redSum += processedPixels[modulo(row + i,height)][modulo(col + j,width)].r * smSharp[i][j];
-                      greenSum += processedPixels[modulo(row + i,height)][modulo(col + j,width)].g * smSharp[i][j];
-                      blueSum += processedPixels[modulo(row + i,height)][modulo(col + j,width)].b * smSharp[i][j];
+                      redSum += processedPixels[modulo(row + i,height)][modulo(col + j,width)].r * smSharp[i+radius][j+radius];
+                      greenSum += processedPixels[modulo(row + i,height)][modulo(col + j,width)].g * smSharp[i+radius][j+radius];
+                      blueSum += processedPixels[modulo(row + i,height)][modulo(col + j,width)].b * smSharp[i+radius][j+radius];
                       break;
                     case 2:
-                      redSum += processedPixels[modulo(row + i,height)][modulo(col + j,width)].r * mdSharp[i][j];
-                      greenSum += processedPixels[modulo(row + i,height)][modulo(col + j,width)].g * mdSharp[i][j];
-                      blueSum += processedPixels[modulo(row + i,height)][modulo(col + j,width)].b * mdSharp[i][j];
+                      redSum += processedPixels[modulo(row + i,height)][modulo(col + j,width)].r * mdSharp[i+radius][j+radius];
+                      greenSum += processedPixels[modulo(row + i,height)][modulo(col + j,width)].g * mdSharp[i+radius][j+radius];
+                      blueSum += processedPixels[modulo(row + i,height)][modulo(col + j,width)].b * mdSharp[i+radius][j+radius];
                       break;
                     case 3:
-                      redSum += processedPixels[modulo(row + i,height)][modulo(col + j,width)].r * lgSharp[i][j];
-                      greenSum += processedPixels[modulo(row + i,height)][modulo(col + j,width)].g * lgSharp[i][j];
-                      blueSum += processedPixels[modulo(row + i,height)][modulo(col + j,width)].b * lgSharp[i][j];
+                      redSum += processedPixels[modulo(row + i,height)][modulo(col + j,width)].r * lgSharp[i+radius][j+radius];
+                      greenSum += processedPixels[modulo(row + i,height)][modulo(col + j,width)].g * lgSharp[i+radius][j+radius];
+                      blueSum += processedPixels[modulo(row + i,height)][modulo(col + j,width)].b * lgSharp[i+radius][j+radius];
                       break;
                   }
                 }

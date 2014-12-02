@@ -3,7 +3,8 @@
   * Joshua Hull (jhull@clemson.edu) and Alex Berk (aberk@clemson.edu)
   * CPSC 4040-001 Fall 2014 Final Project
   */
-  if($_SERVER['REQUEST_METHOD'] == 'POST') {
+    if($_SERVER['REQUEST_METHOD'] == 'POST') {
+
     $originalName = $_FILES['image']['tmp_name'];
     $ext = pathinfo($_FILES['image']['name'], PATHINFO_EXTENSION);
 
@@ -71,9 +72,8 @@
     }
 
     $output = array();
-    putenv('LD_LIBRARY_PATH=/group/dpa/lib');
-    exec('/web/home/jhull/public_html/CPSC404/process' . $parameters. ' 2>&1', $output, $retval);
-
+    //putenv('LD_LIBRARY_PATH=/group/dpa/lib');
+    exec('/Users/aberk/repos/CPSC-404-Final-Project/process ' . $parameters. ' 2>&1', $output, &$retval);
 
     $fileContent = @file_get_contents($newName);
     $finfo = finfo_open(FILEINFO_MIME_TYPE);
