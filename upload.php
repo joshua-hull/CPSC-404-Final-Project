@@ -7,9 +7,9 @@
     $originalName = $_FILES['image']['tmp_name'];
     $ext = pathinfo($_FILES['image']['name'], PATHINFO_EXTENSION);
 
-    rename($originalName, $originalName . $ext);
+    rename($originalName, $originalName . '.' . $ext);
 
-    $originalName = $originalName . $ext;
+    $originalName = $originalName . '.' . $ext;
 
     $newName = tmpfile();
     rename($newName, $newName . '.png');
@@ -20,8 +20,8 @@
     $globalBias = $meta['bias']['global'];
 
     $parameters = '';
-    $parameters = $parameters . '-I ' . $originalName;
-    $parameters = $parameters . '-O ' . $newName;
+    $parameters = $parameters . ' -I ' . $originalName;
+    $parameters = $parameters . ' -O ' . $newName;
     if($globalGain) {
       $parameters = $parameters . ' -1 ' . $meta['gain']['global'];
     } else {
