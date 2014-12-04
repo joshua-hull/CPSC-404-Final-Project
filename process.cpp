@@ -364,6 +364,9 @@ int c;
       case 'G':
         greenBiasValue = atof(optarg);
         break;
+      case 'B':
+        blueBiasValue = atof(optarg);
+        break;
 
       // Filtering Options
       case 's':

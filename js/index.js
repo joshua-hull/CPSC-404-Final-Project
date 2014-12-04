@@ -97,6 +97,12 @@ jQuery(document).ready(function(){
   gainGreenSliderValue = 1;
   gainBlueSliderValue = 1;
   gainGlobalSliderValue = 1;
+
+  biasRedSliderValue = 0;
+  biasGreenSliderValue = 0;
+  biasBlueSliderValue = 0;
+  biasGlobalSliderValue = 0;
+
   jQuery("#gainRedSliderLabel").text("Value: " + gainRedSliderValue);
   jQuery("#gainGreenSliderLabel").text("Value: " + gainRedSliderValue);
   jQuery("#gainBlueSliderLabel").text("Value: " + gainRedSliderValue);
